@@ -5,6 +5,7 @@ import {
   Montserrat,
   Raleway,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/components/providers";
 import { LocalBusinessJsonLd } from "@/components/seo/json-ld";
 import "./globals.css";
@@ -82,6 +83,7 @@ export default function RootLayout({
       <body className="min-h-full bg-background text-foreground">
         <LocalBusinessJsonLd />
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
