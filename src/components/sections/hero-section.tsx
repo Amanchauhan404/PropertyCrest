@@ -17,15 +17,15 @@ export function HeroSection() {
   )}`;
 
   return (
-    <section className="hero-stage relative isolate min-h-[820px] overflow-hidden bg-[#f5f8fc] dark:bg-[#05070d]">
+    <section className="hero-stage relative isolate min-h-[780px] overflow-hidden bg-[#f5f8fc] dark:bg-[#05070d] sm:min-h-[820px]">
       <SiteHeader />
 
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-[681px] bg-[linear-gradient(118deg,#3f51f4_0%,#0193fd_100%)] dark:bg-[radial-gradient(ellipse_at_72%_22%,rgba(37,169,255,0.34),transparent_33%),linear-gradient(118deg,#0a1020_0%,#071d35_48%,#0b1225_100%)]"
+        className="absolute inset-x-0 top-0 h-[700px] bg-[linear-gradient(118deg,#3f51f4_0%,#0193fd_100%)] dark:bg-[radial-gradient(ellipse_at_72%_22%,rgba(37,169,255,0.34),transparent_33%),linear-gradient(118deg,#0a1020_0%,#071d35_48%,#0b1225_100%)] sm:h-[681px]"
       />
 
-      <div className="hero-wave-drift absolute inset-x-0 top-0 h-[681px] overflow-visible">
+      <div className="hero-wave-drift absolute inset-x-0 top-0 h-[700px] overflow-visible sm:h-[681px]">
         <Image
           src="/assets/figma/hero-wave-back.svg"
           alt=""
@@ -49,9 +49,10 @@ export function HeroSection() {
 
       <div
         aria-hidden
-        className="hero-villa-layer pointer-events-none absolute inset-x-0 top-0 z-10 h-[681px] [mask-image:url('/assets/figma/hero-mask.svg')] [mask-repeat:no-repeat] [mask-size:100%_100%]"
+        className="hero-villa-layer pointer-events-none absolute inset-x-0 top-0 z-10 h-[700px] [mask-image:url('/assets/figma/hero-mask.svg')] [mask-position:center_top] [mask-repeat:no-repeat] [mask-size:138%_100%] sm:h-[681px] sm:[mask-size:100%_100%]"
       >
-        <div className="hero-villa-float absolute right-[-120px] top-[96px] h-[592px] w-[min(78vw,1018px)] sm:right-[-90px] lg:right-[-92px]">
+        <div className="hero-villa-float absolute right-[-58px] top-[272px] h-[320px] w-[min(112vw,520px)] sm:right-[-90px] sm:top-[96px] sm:h-[592px] sm:w-[min(78vw,1018px)] lg:right-[-92px]">
+          <div className="absolute bottom-12 right-8 h-28 w-[72vw] rounded-full bg-[#061a36]/16 blur-2xl dark:bg-[#0193fd]/14 sm:hidden" />
           <Image
             src="/assets/figma/hero-villa.png"
             alt="Luxury modern villa"
@@ -59,13 +60,13 @@ export function HeroSection() {
             priority
             fetchPriority="high"
             quality={68}
-            sizes="(max-width: 640px) 32vw, (max-width: 1024px) 58vw, 78vw"
-            className="object-contain object-right drop-shadow-[0_34px_70px_rgb(15_34_84_/_0.28)] dark:brightness-[0.82] dark:contrast-[1.08] dark:drop-shadow-[0_36px_110px_rgb(1_147_253_/_0.22)]"
+            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 58vw, 78vw"
+            className="object-contain object-center dark:brightness-[0.82] dark:contrast-[1.08] sm:object-right sm:drop-shadow-[0_34px_70px_rgb(15_34_84_/_0.28)] sm:dark:drop-shadow-[0_36px_110px_rgb(1_147_253_/_0.22)]"
           />
         </div>
       </div>
 
-      <div className="relative z-20 mx-auto flex min-h-[820px] max-w-[1320px] flex-col justify-between px-5 pb-8 pt-32 sm:px-8 lg:px-12 lg:pt-40">
+      <div className="relative z-20 mx-auto flex min-h-[780px] max-w-[1320px] flex-col justify-between px-5 pb-8 pt-32 sm:min-h-[820px] sm:px-8 lg:px-12 lg:pt-40">
         <div className="hero-copy-drift max-w-[560px]">
           <h1 className="font-ui text-5xl font-extrabold leading-[0.94] text-white sm:text-6xl lg:text-7xl">
             Find Your Dream Property

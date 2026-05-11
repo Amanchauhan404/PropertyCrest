@@ -93,6 +93,11 @@ input,
 textarea,
 select {
   font: inherit;
+  touch-action: manipulation;
+}
+
+.hero-stage {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hero-wave-drift,
@@ -106,6 +111,7 @@ select {
 .hero-villa-float {
   animation: hero-villa-float 7.5s ease-in-out infinite;
   transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 .lux-fade-up {

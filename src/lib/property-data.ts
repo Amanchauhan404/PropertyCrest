@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { featuredProperties } from "@/data/properties";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Property } from "@/types/property";
@@ -23,7 +24,7 @@ type PropertyRow = {
   published: boolean | null;
 };
 
-export async function getAllProperties() {
+async function loadAllProperties() {
   const supabase = getSupabaseAdminClient();
 
   if (!supabase) return featuredProperties;
@@ -42,7 +43,16 @@ export async function getAllProperties() {
   return data.map(mapPropertyRow);
 }
 
-export async function getPropertyBySlug(slug: string) {
+export const getAllProperties = unstable_cache(
+  loadAllProperties,
+  ["published-properties"],
+  {
+    revalidate: 60,
+    tags: ["properties"],
+  },
+);
+
+async function loadPropertyBySlug(slug: string) {
   const supabase = getSupabaseAdminClient();
 
   if (supabase) {
@@ -58,6 +68,15 @@ export async function getPropertyBySlug(slug: string) {
 
   return featuredProperties.find((property) => property.slug === slug);
 }
+
+export const getPropertyBySlug = unstable_cache(
+  loadPropertyBySlug,
+  ["property-by-slug"],
+  {
+    revalidate: 60,
+    tags: ["properties"],
+  },
+);
 
 export function mapPropertyRow(row: PropertyRow): Property {
   return {

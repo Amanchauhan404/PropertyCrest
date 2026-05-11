@@ -18,7 +18,7 @@ export function FeaturedPropertiesSection({
   return (
     <section
       id="featured-properties"
-      className="relative isolate overflow-hidden bg-white px-5 py-24 text-[#11131a] dark:bg-[#05070d] dark:text-white sm:px-8 lg:px-12 lg:py-32"
+      className="relative isolate overflow-hidden bg-white px-5 py-24 text-[#11131a] [contain-intrinsic-size:1200px] [content-visibility:auto] dark:bg-[#05070d] dark:text-white sm:px-8 lg:px-12 lg:py-32"
     >
       <div
         aria-hidden

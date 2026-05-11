@@ -36,7 +36,11 @@ export function LuxuryButton({
 
   if (href) {
     return (
-      <Link className={classes} href={href}>
+      <Link
+        className={classes}
+        href={href}
+        prefetch={href.startsWith("/") ? true : false}
+      >
         {icon}
         {children}
       </Link>

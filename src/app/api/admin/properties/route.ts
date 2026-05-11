@@ -1,3 +1,4 @@
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { requireAdmin } from "@/lib/admin-auth";
@@ -45,10 +46,19 @@ export async function POST(request: Request) {
       formData: await request.formData(),
     });
 
+    revalidatePropertyInventory(property.slug);
+
     return NextResponse.json({ ok: true, property }, { status: 201 });
   } catch (error) {
     return handleAdminError(error);
   }
+}
+
+function revalidatePropertyInventory(slug?: string) {
+  revalidateTag("properties", "max");
+  revalidatePath("/", "page");
+  revalidatePath("/properties", "page");
+  if (slug) revalidatePath(`/properties/${slug}`, "page");
 }
 
 function handleAdminError(error: unknown) {
