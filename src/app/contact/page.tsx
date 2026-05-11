@@ -11,6 +11,7 @@ import { ContactInquiryForm } from "@/components/forms/lead-forms";
 import { SiteHeader } from "@/components/layout/site-header";
 import { LuxuryButton } from "@/components/ui/luxury-button";
 import { siteConfig } from "@/config/site";
+import { getOfficeMap } from "@/lib/map";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -24,6 +25,7 @@ export default function ContactPage() {
         "Hello, I am interested in premium properties.",
       )}`
     : "#";
+  const officeMap = getOfficeMap(siteConfig.officeAddress);
 
   return (
     <main className="min-h-screen bg-white text-[#11131a] dark:bg-[#05070d] dark:text-white">
@@ -88,18 +90,34 @@ export default function ContactPage() {
                 />
                 <ContactLine
                   icon={<Mail />}
-                  text="Admin email connects in the Brevo setup step."
+                  text={siteConfig.officeEmail}
                 />
               </div>
             </section>
 
             <section className="overflow-hidden rounded-lg border border-[#dbe7f5] bg-[#f8fbff] dark:border-white/10 dark:bg-white/6">
+              <div className="border-b border-[#dbe7f5] bg-white px-5 py-4 dark:border-white/10 dark:bg-white/7">
+                <p className="font-ui text-xs font-semibold uppercase text-[#0193fd] dark:text-[#8bd5ff]">
+                  Office location
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[#5f6b7d] dark:text-white/66">
+                  {siteConfig.officeAddress}
+                </p>
+              </div>
               <div className="relative min-h-80">
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,#eef7ff_0%,#ffffff_52%,#f1f4ff_100%)] dark:bg-[linear-gradient(135deg,#07111f_0%,#0d1f36_54%,#121a2b_100%)]" />
-                <div className="absolute inset-x-8 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[#0193fd]/28 to-transparent" />
-                <div className="absolute left-1/2 top-8 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[#b89555]/32 to-transparent" />
-                <div className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#0193fd] text-white shadow-[0_20px_60px_rgb(1_147_253_/_0.28)]">
-                  <MapPin aria-hidden className="size-7" />
+                <iframe
+                  title="PropertyCrest office map"
+                  src={officeMap.embedUrl}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 h-full w-full border-0 grayscale-[0.08] dark:brightness-[0.76] dark:contrast-[1.12]"
+                  allowFullScreen
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#f8fbff] to-transparent dark:from-[#0b1220]" />
+                <div className="absolute bottom-4 left-4">
+                  <LuxuryButton href={officeMap.directionsUrl} variant="glass" className="h-10 px-5">
+                    Open In Maps
+                  </LuxuryButton>
                 </div>
               </div>
             </section>

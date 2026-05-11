@@ -24,6 +24,7 @@ import { featuredProperties } from "@/data/properties";
 import { getAllProperties, getPropertyBySlug } from "@/lib/property-data";
 import { formatPropertyPrice, titleCase } from "@/lib/property-format";
 import { getPropertyOptions } from "@/lib/property-options";
+import { getPropertyMap } from "@/lib/map";
 
 type PropertyDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -67,6 +68,7 @@ export default async function PropertyDetailPage({
   const callHref = siteConfig.callNumber ? `tel:${siteConfig.callNumber}` : "/contact";
   const propertyOptions = await getPropertyOptions();
   const properties = await getAllProperties();
+  const propertyMap = getPropertyMap(property);
 
   return (
     <main className="min-h-screen bg-white text-[#11131a] dark:bg-[#05070d] dark:text-white">
@@ -169,18 +171,32 @@ export default async function PropertyDetailPage({
           />
         </div>
 
-        <div className="mx-auto mt-12 max-w-[1320px] rounded-lg border border-[#dbe7f5] bg-[#f7fbff] p-6 dark:border-white/10 dark:bg-white/6">
+        <div className="mx-auto mt-12 max-w-[1320px] overflow-hidden rounded-lg border border-[#dbe7f5] bg-[#f7fbff] p-6 dark:border-white/10 dark:bg-white/6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="font-display text-4xl font-semibold">Location Map</h2>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-[#5f6b7d] dark:text-white/62">
-                Map integration will connect here with the exact property
-                coordinates from Supabase in the backend phase.
+                Approximate private-site marker for {property.title}. Exact
+                location is shared after visit confirmation.
+              </p>
+              <p className="mt-3 flex items-center gap-2 font-ui text-sm font-semibold text-[#334056] dark:text-white/76">
+                <MapPin aria-hidden className="size-4 text-[#0193fd]" />
+                {propertyMap.displayAddress}
               </p>
             </div>
-            <LuxuryButton href="/contact" variant="outline">
-              Ask For Exact Location
+            <LuxuryButton href={propertyMap.directionsUrl} variant="outline">
+              Open In Maps
             </LuxuryButton>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-lg border border-[#dbe7f5] bg-white shadow-[0_24px_70px_rgb(28_62_132_/_0.1)] dark:border-white/10 dark:bg-[#07111f]">
+            <iframe
+              title={`${property.title} location map`}
+              src={propertyMap.embedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-[360px] w-full border-0 grayscale-[0.1] dark:brightness-[0.76] dark:contrast-[1.12] sm:h-[440px]"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>
